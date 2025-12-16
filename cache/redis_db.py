@@ -1,12 +1,20 @@
 import redis
-from config import redis_config
+import sys 
+import os 
+
+project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+
+if project_root not in sys.path:
+    sys.path.append(project_root)
+
+from config.configs import redis_config
 
 class Db_redis(object):
-     def __init__(self, config:dict,decode_responses):
-         self.host = config.get("HOST_REDIS")
-         self.port = config.get("PORT_REDIS")
-         self.username = config.get("USERNAMME")
-         self.password = config.get("PASSWORD_REDIS")
+     def __init__(self, config:dict, decode_responses):
+         self.host = config.get("host")
+         self.port = config.get("port")
+         self.username = config.get("username")
+         self.password = config.get("password")
          self.decode_responses = decode_responses
          
      def connect(self):
@@ -25,20 +33,8 @@ class Db_redis(object):
         except Exception as error:
             print(f"this error: {error}")   
 
-
-
-
-db = Db_redis(**redis_config)
+db = Db_redis(redis_config, True)
 
 r = db.connect()
-
-if r:
-   try:
-     success = r.set('foo', 'bar')
-     result = r.get('foo')
-     print(result)
-
-   except Exception as err:
-       print(f" this is : {err}")    
 
 

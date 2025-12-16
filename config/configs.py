@@ -12,8 +12,8 @@ config_postgres = {
 }
 
 redis_config = {
-"HOST_REDIS":os.getenv("HOST_REDIS"),
-"PORT_REDIS":os.getenv("PORT_REDIS"),
-"USERNAMME": os.getenv("USERNAMME"),
-"PASSWORD_REDIS":os.getenv("PASSWORD_REDIS")
+"host":os.getenv("HOST_REDIS"),
+"port":os.getenv("PORT_REDIS"),
+"username": os.getenv("USERNAMME"),
+"password":os.getenv("PASSWORD_REDIS")
 }
