@@ -4,11 +4,11 @@ import os
 load_dotenv()
 
 config_postgres = {
-"DBNAME": os.getenv("DBNAME"),
-"USER_POSTGRES":os.getenv("USER_POSTGRES"),
-"PASSWORD_POSTGRES":os.getenv("PASSWORD_POSTGRES"),
-"HOST_POSTGRES":os.getenv("HOST_POSTGRES"),
-"PORT_POSTGRES":os.getenv("PORT_POSTGRES")
+"dbname": os.getenv("DBNAME"),
+"user":os.getenv("USER_POSTGRES"),
+"password":os.getenv("PASSWORD_POSTGRES"),
+"host":os.getenv("HOST_POSTGRES"),
+"port":os.getenv("PORT_POSTGRES")
 }
 
 redis_config = {
