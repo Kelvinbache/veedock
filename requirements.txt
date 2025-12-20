@@ -4,3 +4,4 @@ psycopg[binary]
 redis
 slowapi
 python-dotenv
+python-jose

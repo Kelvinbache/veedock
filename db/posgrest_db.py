@@ -23,7 +23,6 @@ class Db_prostgres(object):
        except Exception as error:
             print(f"this is erro:{error}")   
     
-    # error 
 
 
 db_connection = Db_prostgres()
@@ -38,9 +37,10 @@ if conn:
                     SELECT 1 
                     FROM information_schema.tables 
                     WHERE table_schema = 'public' 
-                    AND table_name = 'test'
+                    AND table_name IN ('test', 'user', 'login', 'user_test')
                     );
                     """)
+         
          response = cur.fetchone()
 
          if response[0]:
@@ -48,11 +48,37 @@ if conn:
          
          else:
             cur.execute("""
-                CREATE TABLE test (
+                create table IF NOT EXISTS users (
+                id bigint primary key generated always as identity,
+                nombre text not null,
+                apellido text not null,
+                telefono text not null,
+                correo text not null unique
+            );""")   
+
+            cur.execute("""
+                create table IF NOT EXISTS login (
+                id bigint primary key generated always as identity,
+                usuario_id bigint not null,
+                password text not null,
+                foreign key (usuario_id) references usuario (id)
+            );""")
+
+            cur.execute("""
+                CREATE TABLE IF NOT EXISTS test (
                 id serial PRIMARY KEY,
                 num integer,
                 data text)
             """) 
+             
+            cur.execute("""
+                create table IF NOT EXISTS users_test (
+                usuario_id bigint not null,
+                test_id bigint not null,
+                primary key (usuario_id, test_id),
+                foreign key (usuario_id) references usuario (id),
+                foreign key (test_id) references test (id)
+            );""") 
 
         conn.commit()
    
