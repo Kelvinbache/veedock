@@ -6,11 +6,29 @@
     <title>login</title>
 </head>
 <body>
-    <h1>login user</h1>
-    <form action="" method="post">
-        <input type="text" name="username" class="username">
-        <input type="password" name="password" class="password" >
-        <button type="submit">send</button>
-    </form>
+    
+    {% if request.url.path == "/login" %}
+        <h1>login user</h1>
+        <form method="post" class="form" id="form">
+            <input type="text" name="username" class="username" id="username">
+            <input type="password" name="password" class="password" id="password">
+            <button type="submit" id="send" class="id">send</button>
+        </form>
+
+        <script src="static/js/index.js"></script>
+    
+    {%endif %}
+        
+    {% if request.url.path == "/login_up" %}
+        <h1>Welcome is login up</h1>
+        <form method="post" class="form" id="form">
+            <input type="text" name="username" class="username" id="username">
+            <input type="password" name="password" class="password" id="password">
+            <button type="submit" id="send" class="id">send</button>
+        </form>
+        
+    {%endif %}
+        
+
 </body>
 </html>

@@ -11,6 +11,7 @@ from fastapi.staticfiles import StaticFiles
 from router.all_items import router_all_items
 from router.add_data import router_add_item
 from router.login import router_login
+from router.home import home
 
 app = FastAPI()
 
@@ -20,6 +21,7 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 
 
 app.include_router(router_login)
+app.include_router(home)
 app.include_router(router_all_items)
 app.include_router(router_add_item)
 

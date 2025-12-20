@@ -7,6 +7,7 @@ from pydantic import BaseModel
 from fastapi import APIRouter,Request, HTTPException, Depends
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from fastapi.templating import Jinja2Templates
+from fastapi.responses import RedirectResponse
 
 # local
 from dependencies.limit import limiter
@@ -43,21 +44,25 @@ def controlle_login(request:Request,from_data:Annotated[OAuth2PasswordRequestFor
     if from_data.username == "kelvin" and from_data.password == "1234":
     
        token = jwt.encode({'sub': from_data.username}, 'secret', algorithm='HS256')
-    
-       return {
-            "access_token": token, 
-            "token_type": "bearer"
-        }
+        
+       return RedirectResponse(url="/home", status_code=302, headers= {"access_token": token, "token_type": "bearer", "Cache-Control":"no-cache"}) # Redirige a /dashboard
     
     else:
         raise HTTPException(status_code=400, detail="Incorrect username or password")
 
 
 
-@router_login.get("/token")
+@router_login.get("/login")
 @limiter.limit("5/minute")
 def controlle_login_user(request:Request):
     return templates.TemplateResponse(request=request, name="index.html", context={})
+
+
+@router_login.get("/login_up")
+@limiter.limit("5/minute")
+def controlle_login_user(request:Request):
+    return templates.TemplateResponse(request=request, name="index.html", context={})
+
 
 ###
 # Taks  
