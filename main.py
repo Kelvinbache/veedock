@@ -12,15 +12,26 @@ from router.all_items import router_all_items
 from router.add_data import router_add_item
 from router.login import router_login
 from router.home import home
+from fastapi.middleware.cors import CORSMiddleware
+
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 
 app.state.limiter = limiter
 app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
 
-app.include_router(router_login)
+app.include_router(router_login, prefix="/token")
 app.include_router(home)
 app.include_router(router_all_items)
 app.include_router(router_add_item)

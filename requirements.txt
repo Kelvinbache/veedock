@@ -5,3 +5,4 @@ redis
 slowapi
 python-dotenv
 python-jose
+fastapi-mail

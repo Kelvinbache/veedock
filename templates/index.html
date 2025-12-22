@@ -7,26 +7,33 @@
 </head>
 <body>
     
-    {% if request.url.path == "/login" %}
+    {% if request.url.path == "/token/login" %}
         <h1>login user</h1>
         <form method="post" class="form" id="form">
-            <input type="text" name="username" class="username" id="username">
-            <input type="password" name="password" class="password" id="password">
+            <input type="text" name="username" class="username" id="username" placeholder="username">
+            <input type="password" name="password" class="password" id="password" placeholder="password">
             <button type="submit" id="send" class="id">send</button>
         </form>
+        
+        <br>
+        <button><a href="/token/login_up"> login Up </a></button>
 
-        <script src="static/js/index.js"></script>
+        <script src="static/js/login.js"></script>
     
     {%endif %}
         
-    {% if request.url.path == "/login_up" %}
+    {% if request.url.path == "/token/login_up" %}
         <h1>Welcome is login up</h1>
-        <form method="post" class="form" id="form">
-            <input type="text" name="username" class="username" id="username">
-            <input type="password" name="password" class="password" id="password">
-            <button type="submit" id="send" class="id">send</button>
+        <form method="post" class="form" id="form_up">
+            <input type="text" name="username" class="username" id="username_up" placeholder="username">
+            <input type="email" name="email" class="email" id="email_up" placeholder="email">
+            <input type="password" name="password" class="password" id="password_up" placeholder="password">
+            <input type="password" name="password" class="password" id="password_config_up" placeholder="password confirmation">
+            <button type="submit" id="send_up" class="send">send</button>
         </form>
-        
+        <br>
+        <button><a href="/token/login"> login </a></button>
+        <script src="static/js/login_up.js"></script>
     {%endif %}
         
 

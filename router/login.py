@@ -19,6 +19,7 @@ templates = Jinja2Templates(directory="templates")
 class User(BaseModel):
     username:str
     password:str
+    email:str
 
 async def get_token_user(token:Annotated[str, Depends(oauth2_shema)]):
     try:
@@ -38,7 +39,12 @@ async def get_token_user(token:Annotated[str, Depends(oauth2_shema)]):
         print(err)
         raise HTTPException( status_code=401,detail="Could not validate credentials")
 
-@router_login.post("/token")
+@router_login.post("/login_up")
+@limiter.limit("5/minute")
+async def controlle_login_up(request:Request, user:User):
+    return {"response": user}
+
+@router_login.post("/login")
 @limiter.limit("5/minute")
 def controlle_login(request:Request,from_data:Annotated[OAuth2PasswordRequestForm, Depends()]):
     if from_data.username == "kelvin" and from_data.password == "1234":
@@ -51,15 +57,12 @@ def controlle_login(request:Request,from_data:Annotated[OAuth2PasswordRequestFor
         raise HTTPException(status_code=400, detail="Incorrect username or password")
 
 
-
 @router_login.get("/login")
-@limiter.limit("5/minute")
 def controlle_login_user(request:Request):
     return templates.TemplateResponse(request=request, name="index.html", context={})
 
 
 @router_login.get("/login_up")
-@limiter.limit("5/minute")
 def controlle_login_user(request:Request):
     return templates.TemplateResponse(request=request, name="index.html", context={})
 
