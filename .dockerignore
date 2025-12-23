@@ -1,0 +1,36 @@
+.venv/
+venv/
+env/
+ENV/
+
+# Caché de Python
+**/__pycache__/
+*.py[cod]
+*$py.class
+
+# Git
+.git/
+.gitignore
+
+# Docker
+docker-compose.yml
+docker-compose.override.yml
+Dockerfile
+haproxy.cfg
+nginx.conf
+.dockerignore
+
+# Archivos de entorno y secretos (¡SEGURIDAD!)
+.env
+*.secrets
+auth.json
+
+# IDEs y editores
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs y temporales
+*.log
+tmp/

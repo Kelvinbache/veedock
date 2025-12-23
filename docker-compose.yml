@@ -1,0 +1,29 @@
+services:
+  veedock:
+    build: .
+    networks:
+      - backend
+
+  nginx_proxy:
+    image: nginx  
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - veedock
+    networks:
+      - backend
+
+  haproxy_lb:
+    image: haproxy:latest
+    ports:
+      - "80:80"      
+      - "8404:8404"
+    volumes:
+      - ./haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro
+    depends_on:
+      - nginx_proxy
+    networks:
+      - backend
+
+networks:
+  backend:  
